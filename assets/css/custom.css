@@ -1,0 +1,24 @@
+
+
+@font-face {
+  font-family: RespondentBold;
+  src: url(../fonts/RespondentBold.otf);
+}
+
+.ttd {
+  font-family: RespondentBold;
+  font-size: xx-large;
+}
+
+.btn-primary, .primary, .pagination>.active>a {
+  background-color: #605ca8 !important;
+}
+
+.select2-container .select2-selection--single {
+  height: 34px !important;
+}
+
+.select2-container--default .select2-selection--single {
+  border-color: #d2d6de !important;
+  border-radius: 0px !important;
+}
