@@ -148,7 +148,7 @@
           ],
         ],
         [
-          'title'     => 'Histori',
+          'title'     => 'History',
           'link'      => 'history',
           'icon'      => 'fa-history',
           'access'    => ['!SPV'],

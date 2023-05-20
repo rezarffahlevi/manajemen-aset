@@ -51,7 +51,7 @@ class Auth extends CI_Controller
 			];
 
 			$this->session->set_flashdata($flash_data);
-			$this->M_master->warning('username or password is wrong');
+			$this->M_master->warning('Username atau password salah');
 			$redirect	= 'auth/';
 		}
 
