@@ -27,10 +27,13 @@
                 <tr>
                   <th width="50">No</th>
                   <th>Jumlah</th>
+                  <th>PIC</th>
                   <th>Keterangan</th>
                   <th>Lokasi Tujuan</th>
                   <th>Material</th>
                   <th>Penyimpanan</th>
+                  <th>Status</th>
+                  <th>Tanggal</th>
                   <!-- <th width="150">Action</th> -->
                 </tr>
               </thead>
@@ -126,7 +129,7 @@
         processing: true,
         serverSide: true,
         ajax: {
-          url: '<?= site_url('reservasi/jx_get_data') ?>',
+          url: '<?= site_url('reservasi/jx_get_history') ?>',
           type: 'POST'
         }
       })

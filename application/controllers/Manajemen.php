@@ -35,15 +35,14 @@ class Manajemen extends CI_Controller
 		$get['data'] = [];
 		$start = $start + 1;
 		foreach ($data as $v) {
+			// $material = $this->M_master->get_id('reservasi', ['material_id' => $v->id, 'status' => 'Butuh Persetujuan'])->row();
 			$button = '';
-			// $button .= '
-			// 		<button type="button" class="btn btn-success" onclick="edit_status(\'' . base64_encode(json_encode($v)) . '\')"><i class="fa ' . 'fa-eye' . '"></i></button>
-			// 		';
-
 			// $button .= '
 			// 		<a target="_blank" href="' . base_url('rent/send_whatsapp/' . $v->id) . '" class="btn btn-info"><i class="fa fa-whatsapp"></i></a>
 			// 		';
-
+			// if ($material) {
+			// 	$button .= '<span class="label label-danger">Butuh Persetujuan</span>';
+			// }
 
 			$get['data'][] = [
 				$start,
@@ -53,7 +52,7 @@ class Manajemen extends CI_Controller
 				$v->vendor,
 				$v->lokasi,
 				$v->jumlah,
-				$button
+				// $button
 			];
 			$start++;
 		}
@@ -115,7 +114,7 @@ class Manajemen extends CI_Controller
 				'rekanan_id' => $rekanan,
 				'nomor_io' => $nomor_io,
 				'tgl' => $tgl,
-				'status' => 'Tersedia',
+				// 'status' => 'Tersedia',
 				'updated_at' => $updated_at,
 			];
 
@@ -127,6 +126,7 @@ class Manajemen extends CI_Controller
 				$msg = 'Berhasil ubah data';
 			} else {
 				$this->load->database();
+				$data['created_at'] = $updated_at;
 				$add = $this->M_master->add('spr', $data);
 
 				// MATERIALS
@@ -184,28 +184,37 @@ class Manajemen extends CI_Controller
 		if ($this->input->method(TRUE) == 'POST') {
 			$id = $this->input->post('id');
 			$material_number = $this->input->post('material_number');
+			$tgl = $this->input->post('tgl');
 			$storage_loc = $this->input->post('storage_loc');
+			$pic = $this->input->post('pic');
 			$jumlah = $this->input->post('jumlah');
 			$lokasi = $this->input->post('lokasi');
 			$keterangan = $this->input->post('keterangan');
+			$updated_at = date('Y-m-d H:i:s');
 
 			$data = [
 				'material_id' => $material_number,
+				'tgl_reservasi' => $tgl,
 				'penyimpanan_id' => $storage_loc,
+				'pic' => $pic,
 				'jumlah' => $jumlah,
 				'lokasi_tujuan' => $lokasi,
 				'keterangan' => $keterangan,
+				'status' => 'Butuh Persetujuan',
+				'created_at' => $updated_at,
 			];
 
-			$data_update = [
-				'penyimpanan_id' => $storage_loc,
-				'jumlah' => $jumlah,
-			];
+			// $data_update = [
+			// 	'penyimpanan_id' => $storage_loc,
+			// 	'jumlah' => $jumlah,
+			// ];
 
 			if (!empty($material_number)) {
 				$where = ['id' => $material_number];
+				// $material = $this->M_master->get_id('material', $where)->row();
+				// $data_update['jumlah'] = $material->jumlah - $jumlah;
 				$add = $this->M_master->add('reservasi', $data);
-				$edit = $this->M_master->edit('material', $data_update, $where);
+				// $edit = $this->M_master->edit('material', $data_update, $where);
 				$msg = 'Berhasil membuat resevasi';
 			} else {
 				$add = $this->M_master->add('reservasi', $data);
@@ -213,7 +222,7 @@ class Manajemen extends CI_Controller
 			}
 
 			$this->M_master->success($msg);
-			redirect('manajemen/');
+			redirect('reservasi/');
 		}
 	}
 
@@ -222,18 +231,24 @@ class Manajemen extends CI_Controller
 		if ($this->input->method(TRUE) == 'POST') {
 			$id = $this->input->post('id');
 			$material_number = $this->input->post('material_number');
+			$tgl = $this->input->post('tgl');
 			$lokasi = $this->input->post('lokasi');
 			$storage_loc = $this->input->post('storage_loc');
 			$lokasi = $this->input->post('lokasi');
+			$pic = $this->input->post('pic');
 			$jumlah = $this->input->post('jumlah');
 			$keterangan = $this->input->post('keterangan');
+			$updated_at = date('Y-m-d H:i:s');
 
 			$data = [
 				'material_id' => $material_number,
+				'tgl_rma' => $tgl,
 				'penyimpanan_id' => $storage_loc,
+				'pic' => $pic,
 				'jumlah' => $jumlah,
 				'lokasi_barang' => $lokasi,
 				'keterangan' => $keterangan,
+				'created_at' => $updated_at,
 			];
 
 			$data_update = [
@@ -243,6 +258,8 @@ class Manajemen extends CI_Controller
 
 			if (!empty($material_number)) {
 				$where = ['id' => $material_number];
+				$material = $this->M_master->get_id('material', $where)->row();
+				$data_update['jumlah'] = $material->jumlah + $jumlah;
 				$add = $this->M_master->add('rma', $data);
 				$edit = $this->M_master->edit('material', $data_update, $where);
 				$msg = 'Berhasil membuat rma';

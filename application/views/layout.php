@@ -83,9 +83,9 @@
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                  <div class="pull-left">
+                  <!-- <div class="pull-left">
                     <a href="<?= site_url('user/profile/') ?>" class="btn btn-default btn-flat">Profil</a>
-                  </div>
+                  </div> -->
                   <div class="pull-right">
                     <a href="<?= site_url('auth/logout/') ?>" class="btn btn-default btn-flat">Keluar</a>
                   </div>
@@ -121,6 +121,12 @@
           'title'     => 'Material Multimedia',
           'link'      => 'manajemen',
           'icon'      => 'fa-table',
+          'access'    => [],
+        ],
+        [
+          'title'     => 'Persetujuan Reservasi',
+          'link'      => 'reservasi',
+          'icon'      => 'fa-book',
           'access'    => [],
         ],
         [

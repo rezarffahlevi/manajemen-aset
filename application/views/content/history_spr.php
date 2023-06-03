@@ -34,7 +34,7 @@
                   <th>Tanggal</th>
                   <th>Rekanan</th>
                   <th>Nomor IO</th>
-                  <th>Status</th>
+                  <!-- <th>Status</th> -->
                   <th>Last Update</th>
                   <!-- <th width="150">Action</th> -->
                 </tr>

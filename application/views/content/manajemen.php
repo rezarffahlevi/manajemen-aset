@@ -9,14 +9,16 @@
     <ol class="breadcrumb">
       <li class="active"><a href="#">Material Multimedia</a></li>
     </ol>
-    <div class="row">
-      <div class="col-md-12" style="margin-top:20px;">
-        <button type="button" class="btn btn-primary" onclick="show_spr()">SPR</button>
-        <button type="button" class="btn btn-success" onclick="show_update_stock()">UPDATE STOCK</button>
-        <button type="button" class="btn btn-warning" onclick="show_reservasi()">RESERVASI</button>
-        <button type="button" class="btn btn-danger" onclick="show_rma()">RMA</button>
+    <?php if ($this->session->userdata('level') == 'Admin'): ?>
+      <div class="row">
+        <div class="col-md-12" style="margin-top:20px;">
+          <button type="button" class="btn btn-primary" onclick="show_spr()">SPR</button>
+          <button type="button" class="btn btn-success" onclick="show_update_stock()">UPDATE STOCK</button>
+          <button type="button" class="btn btn-warning" onclick="show_reservasi()">RESERVASI</button>
+          <button type="button" class="btn btn-danger" onclick="show_rma()">RMA</button>
+        </div>
       </div>
-    </div>
+    <?php endif; ?>
   </section>
 
   <!-- Main content -->
@@ -38,7 +40,7 @@
                   <th>Storage Location</th>
                   <th>Jumlah</th>
                   <!-- <th>Other</th> -->
-                  <th width="50">Action</th>
+                  <!-- <th width="50">Status</th> -->
                 </tr>
               </thead>
             </table>
@@ -81,14 +83,14 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="rab">Nilai RAB</label>
-                <input type="text" class="form-control" name="rab" placeholder="xxx.xxx.xxx.xxx" id="spr_rab"
+                <input type="number" min="0" class="form-control" name="rab" placeholder="xxx.xxx.xxx.xxx" id="spr_rab"
                   required />
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="realissasi">Realisasi</label>
-                <input type="text" class="form-control" name="realisasi" placeholder="xxx.xxx.xxx.xxx"
+                <input type="number" min="0" class="form-control" name="realisasi" placeholder="xxx.xxx.xxx.xxx"
                   id="spr_realisasi" required />
               </div>
             </div>
@@ -197,9 +199,8 @@
               </div>
               <div class="form-group">
                 <label for="material_number">Material Number</label>
-                <select type="text" class="js-example-basic-single js-states form-control material"
-                  style="width: 100%" name="material_number"
-                  placeholder="" id="update_material_number" required>
+                <select type="text" class="js-example-basic-single js-states form-control material" style="width: 100%"
+                  name="material_number" placeholder="" id="update_material_number" required>
                   <option>Pilih</option>
                 </select>
               </div>
@@ -213,7 +214,8 @@
               </div>
               <div class="form-group">
                 <label for="update_stock">Update Stock</label>
-                <input type="text" class="form-control" name="update_stock" placeholder="" id="update_stock" required />
+                <input type="number" min="0" class="form-control" name="update_stock" placeholder="" id="update_stock"
+                  required />
               </div>
             </div>
           </div>
@@ -243,29 +245,31 @@
               <div class="form-group">
                 <input type="hidden" name="id" id="id" />
                 <label for="material_number">Material Number</label>
-                <select class="js-example-basic-single js-states form-control material"
-                  style="width: 100%" name="material_number" placeholder="" id="reserv_material_number"
-                  required>
+                <select class="js-example-basic-single js-states form-control material" style="width: 100%"
+                  name="material_number" placeholder="" id="reserv_material_number" required>
                   <option>Pilih</option>
                 </select>
               </div>
-              <!-- <div class="form-group">
-                <label for="material_name">Material Name</label>
-                <select class="form-control" name="material_name" placeholder="" id="material_name"
-                  required>
-                  <option>Pilih</option>
-                </select>
-              </div> -->
+              <div class="form-group">
+                <label for="tgl">Tanggal Reservasi</label>
+                <input type="date" class="form-control" name="tgl" id="reserv_tgl" required />
+                <!-- <input type="datetime-local" class="form-control" name="created_date" id="created_date" required /> -->
+              </div>
               <div class="form-group">
                 <label for="storage_loc">Storage Loc</label>
-                <select class="js-example-basic-single js-states form-control penyimpanan"
-                  style="width: 100%" name="storage_loc" placeholder="" id="reserv_storage_loc" required>
+                <select class="js-example-basic-single js-states form-control penyimpanan" style="width: 100%"
+                  name="storage_loc" placeholder="" id="reserv_storage_loc" required>
                   <option>Pilih</option>
                 </select>
+              </div>
+              <div class="form-group">
+                <label for="pic">PIC</label>
+                <input type="text" class="form-control" name="pic" placeholder="" id="pic" required />
               </div>
               <div class="form-group">
                 <label for="jumlah">Jumlah</label>
-                <input type="text" class="form-control" name="jumlah" placeholder="" id="jumlah" required />
+                <input type="number" min="0" class="form-control" name="jumlah" placeholder="" id="reserv_jumlah"
+                  required />
               </div>
               <div class="form-group">
                 <label for="lokasi">Lokasi Tujuan Reservasi</label>
@@ -277,6 +281,7 @@
               </div>
             </div>
           </div>
+          <input type="hidden" id="temp_jumlah" />
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
@@ -307,29 +312,30 @@
               </div>
               <div class="form-group">
                 <label for="material_number">Material Number</label>
-                <select type="text" class="js-example-basic-single js-states form-control material"
-                  style="width: 100%" name="material_number" placeholder="" id="rma_material_number"
-                  required>
+                <select type="text" class="js-example-basic-single js-states form-control material" style="width: 100%"
+                  name="material_number" placeholder="" id="rma_material_number" required>
                   <option>Pilih</option>
                 </select>
               </div>
-              <!-- <div class="form-group">
-                <label for="material_name">Material Name</label>
-                <select type="text" class="form-control" name="material_name" placeholder="" id="material_name"
-                  required>
-                  <option>Pilih</option>
-                </select>
-              </div> -->
+              <div class="form-group">
+                <label for="tgl">Tanggal RMA</label>
+                <input type="date" class="form-control" name="tgl" id="rma_tgl" required />
+                <!-- <input type="datetime-local" class="form-control" name="created_date" id="created_date" required /> -->
+              </div>
               <div class="form-group">
                 <label for="storage_loc">Storage Loc</label>
-                <select class="js-example-basic-single js-states form-control penyimpanan"
-                  style="width: 100%" name="storage_loc" placeholder="" id="rma_storage_loc" required>
+                <select class="js-example-basic-single js-states form-control penyimpanan" style="width: 100%"
+                  name="storage_loc" placeholder="" id="rma_storage_loc" required>
                   <option>Pilih</option>
                 </select>
+              </div>
+              <div class="form-group">
+                <label for="pic">PIC</label>
+                <input type="text" class="form-control" name="pic" placeholder="" id="pic" required />
               </div>
               <div class="form-group">
                 <label for="jumlah">Jumlah</label>
-                <input type="text" class="form-control" name="jumlah" placeholder="" id="jumlah" required />
+                <input type="number" min="0" class="form-control" name="jumlah" placeholder="" id="jumlah" required />
               </div>
               <div class="form-group">
                 <label for="keterangan">Keterangan</label>
@@ -391,6 +397,14 @@
       }
     });
 
+    $('#reserv_material_number').on("select2:selecting", function (e) {
+      // what you would like to happen
+      let jumlah = e.params?.args?.data?.jumlah;
+      console.log(jumlah);
+      $('#temp_jumlah').val(jumlah);
+      $('#reserv_jumlah').val('')
+    });
+
     $('#spr_rekanan').select2({
       ajax: {
         url: function (params) {
@@ -404,6 +418,17 @@
         }
       }
     });
+
+    $('#reserv_jumlah').on('change', function (e) {
+      if (parseInt($('#reserv_jumlah').val()) > parseInt($('#temp_jumlah').val())) {
+        Swal.fire(
+          "Peringatan",
+          "Jumlah tidak boleh lebih dari stok, stok tersisa " + $('#temp_jumlah').val(),
+          "warning"
+        )
+        e.target.value = '';
+      }
+    })
 
     addMaterialInput();
   })
@@ -472,7 +497,7 @@
             </div>
             <div class="col-md-1">
               <label for="mat_jumlah_${params}">Jumlah</label>
-              <input type="text" class="form-control" name="mat_jumlah_${params}" id="mat_jumlah_${params}" required />
+              <input type="number" min="0" class="form-control" name="mat_jumlah_${params}" id="mat_jumlah_${params}" required />
             </div>
           </div>
           <hr/>

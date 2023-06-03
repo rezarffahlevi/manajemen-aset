@@ -16,9 +16,7 @@ class Home extends CI_Controller
 	public function index()
 	{
 
-		$data['hari'] = $this->M_master->get_count_id('spr', "DATE(created_at) BETWEEN '" . date('Y-m-d') . "' AND '" . date('Y-m-d')  . "'")->row('total');
-		$data['minggu'] = $this->M_master->get_count_id('spr', "DATE(created_at) BETWEEN '" . date("Y-m-d", strtotime(date("Y-m-d") . "-7 day")) . "' AND '" . date('Y-m-d')  . "'")->row('total');
-		$data['bulan'] = $this->M_master->get_count_id('spr', "DATE(created_at) BETWEEN '" . date("Y-m-d", strtotime(date("Y-m-d") . "-30 day")) . "' AND '" . date('Y-m-d')  . "'")->row('total');
+		$data['less_stock'] = $this->M_master->get_id('material', 'jumlah <= 20')->result();
 		$data['content'] = 'content/dashboard';
 		$this->load->view('layout', $data);
 	}

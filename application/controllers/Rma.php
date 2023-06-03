@@ -26,7 +26,7 @@ class Rma extends CI_Controller
 			'penyimpanan' => ['on' => 'penyimpanan.id=rma.penyimpanan_id', 'join' => 'LEFT'],
 		];
 		$select = '*, ';
-		$select .= 'rma.id as id, rma.keterangan as keterangan';
+		$select .= 'rma.id as id, rma.keterangan as keterangan, rma.jumlah as jumlah';
 		$start = $this->input->post('start');
 		$get = $this->M_master->get_data_table('rma', $start, $join, $select, null, ['rma.keterangan', 'lokasi_barang'], null, 'rma.id DESC');
 
@@ -51,6 +51,8 @@ class Rma extends CI_Controller
 				$v->lokasi_barang,
 				$v->material,
 				$v->lokasi,
+				$v->pic,
+				$v->tgl_rma,
 				// $button
 			];
 			$start++;

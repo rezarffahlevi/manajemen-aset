@@ -92,6 +92,7 @@ class Material extends CI_Controller
 		foreach ($data as $key => $value) {
 			$result['id'] = $value->id;
 			$result['text'] = $value->number . ' | ' . $value->material;
+			$result['jumlah'] = $value->jumlah;
 			$results[] = $result;
 		}
 

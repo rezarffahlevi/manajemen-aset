@@ -53,7 +53,7 @@ class Spr extends CI_Controller
 				$v->tgl,
 				$v->nama_perusahaan,
 				$v->nomor_io,
-				$v->status,
+				// $v->status,
 				$v->updated_at,
 				// $button
 			];

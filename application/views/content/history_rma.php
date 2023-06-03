@@ -31,6 +31,8 @@
                   <th>Lokasi Barang</th>
                   <th>Material</th>
                   <th>Penyimpanan</th>
+                  <th>PIC</th>
+                  <th>Tanggal</th>
                   <!-- <th width="150">Action</th> -->
                 </tr>
               </thead>
