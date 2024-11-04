@@ -28,7 +28,7 @@
 <body class="login">
   <div class="login_wrapper">
     <div class="login-logo" align='center'>
-      <img src="<?= base_url('assets/img/logo_icon.png') ?>">
+      <img src="<?= base_url('assets/img/logo_icon.png') ?>" height="65%" width="65%">
       <h2 class="asset">Jakarta</h2>
     </div>
     <center>
@@ -51,11 +51,10 @@
         <div class="separator">
           <div class="clearfix"></div>
           <br />
-          <?= $this->session->flashdata("msg") ?>
+          <!-- <?= $this->session->flashdata("msg") ?> -->
           <div>
-            <h1><img src="<?= base_url('assets/img/logo_icon.png') ?>" alt="logo" height="15%" width="15%"> Indonesia
-              Comnet Plus</h1>
-            <p><a id="a" href="#">ICON PLN©2023 All Rights Reserved.</a></p>
+            <h1><img src="<?= base_url('assets/img/logo_icon.png') ?>" alt="logo" height="15%" width="15%"> PLN Icon Plus</h1>
+            <p><a id="a" href="#">PLN Icon Plus©2024 All Rights Reserved.</a></p>
           </div>
         </div>
       </form>

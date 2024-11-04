@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>ICON+ Jakarta</title>
+  <title>PLN ICON+</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
   <link rel="icon" href="<?= base_url('assets/img/logo_icon.png') ?>">
 
@@ -11,7 +11,8 @@
   <!-- Bootstrap 3.3.2 -->
   <link href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
   <!-- Font Awesome Icons -->
-  <link href="<?= base_url('assets/plugins/font-awesome/css/font-awesome.min.css') ?>" rel="stylesheet" type="text/css" />
+  <link href="<?= base_url('assets/plugins/font-awesome/css/font-awesome.min.css') ?>" rel="stylesheet"
+    type="text/css" />
   <!-- Ionicons -->
   <link href="<?= base_url('assets/css/ionicons.min.css') ?>" rel="stylesheet" type="text/css" />
   <!-- Theme style -->
@@ -39,7 +40,7 @@
   <div class="wrapper">
 
     <header class="main-header">
-      <a href="#" class="logo"><b>ICON+</b> Jakarta</a>
+      <a href="#" class="logo"><b>PLN</b> ICON+</a>
       <!-- Header Navbar: style can be found in header.less -->
       <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -52,33 +53,41 @@
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <?php if ($this->session->userdata('level') === 'Superadmin') { ?>
-            <li class="dropdown notifications-menu">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                <i class="fa fa-bell-o"></i>
-                <span class="label label-warning" id="count_notif">0</span>
-              </a>
-              <ul class="dropdown-menu">
-                <li class="header" id="header_notif">10 pemberitahuan</li>
-                <li>
-                  <!-- inner menu: contains the actual data -->
-                  <ul class="menu" id="list_notif">
-                  </ul>
-                </li>
-              </ul>
-            </li>
+              <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                  <i class="fa fa-bell-o"></i>
+                  <span class="label label-warning" id="count_notif">0</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header" id="header_notif">10 pemberitahuan</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu" id="list_notif">
+                    </ul>
+                  </li>
+                </ul>
+              </li>
             <?php } ?>
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="<?= base_url('assets/img/logo_icon.png') ?>" class="user-image" alt="User Image" />
-                <span class="hidden-xs"><?= $this->session->userdata('name') ?></span>
+                <span class="hidden-xs">
+                  <?= $this->session->userdata('name') ?>
+                </span>
               </a>
               <ul class="dropdown-menu">
                 <!-- User image -->
                 <li class="user-header">
-                  <img src="<?= base_url('assets/img/logo_icon.png') ?>" class="img-circle" alt="User Image" style="background:#fff" />
-                  <p><?= $this->session->userdata('nama') ?>
-                    <small><?= $this->session->userdata('username') ?></small>
+                  <!-- <img src="<?= base_url('assets/img/logo_icon.png') ?>" class="img-circle" alt="User Image"
+                    style="background:#fff" /> -->
+                  <img src="<?= base_url('assets/img/logo_icon.png') ?>" style="height: 50px; border: 0px" alt="User Image"
+                    style="background:#fff" />
+                  <p>
+                    <?= $this->session->userdata('nama') ?>
+                    <small>
+                      <?= $this->session->userdata('username') ?>
+                    </small>
                   </p>
                 </li>
                 <!-- Menu Footer-->
@@ -99,87 +108,87 @@
 
     <!-- =============================================== -->
     <?php
-      $uri            = $this->uri;
-      // $segments       = $uri->getSegments();
-      $menu_active    = "";
-      $submenu_active = "";
-      $level          = $this->session->userdata('level');
+    $uri = $this->uri;
+    // $segments       = $uri->getSegments();
+    $menu_active = "";
+    $submenu_active = "";
+    $level = $this->session->userdata('level');
 
-      if ($uri->total_segments() > 0) {
-        $menu_active    = $uri->segment(1);
-        $submenu_active = $uri->segment(2);
-      }
+    if ($uri->total_segments() > 0) {
+      $menu_active = $uri->segment(1);
+      $submenu_active = $uri->segment(2);
+    }
 
-      $menu   = [
-        [
-          'title'     => 'Beranda',
-          'link'      => 'home',
-          'icon'      => 'fa-home',
-          'access'    => [],
-        ],
-        [
-          'title'     => 'Material Multimedia',
-          'link'      => 'manajemen',
-          'icon'      => 'fa-table',
-          'access'    => [],
-        ],
-        [
-          'title'     => 'Persetujuan Reservasi',
-          'link'      => 'reservasi',
-          'icon'      => 'fa-book',
-          'access'    => [],
-        ],
-        [
-          'title'     => 'Master Data',
-          'link'      => 'master',
-          'icon'      => 'fa-caret-square-o-down',
-          'access'    => ['!SPV'],
-          'submenu'   => [
-            [
-              'title'     => 'User',
-              'link'      => 'master/user',
-            ],
-            [
-              'title'     => 'Material',
-              'link'      => 'master/material',
-            ],
-            [
-              'title'     => 'Rekanan',
-              'link'      => 'master/rekanan',
-            ],
-            [
-              'title'     => 'Storage Location',
-              'link'      => 'master/penyimpanan',
-            ],
+    $menu = [
+      [
+        'title' => 'Beranda',
+        'link' => 'home',
+        'icon' => 'fa-home',
+        'access' => [],
+      ],
+      [
+        'title' => 'Material Multimedia',
+        'link' => 'manajemen',
+        'icon' => 'fa-table',
+        'access' => [],
+      ],
+      [
+        'title' => 'Persetujuan Reservasi',
+        'link' => 'reservasi',
+        'icon' => 'fa-book',
+        'access' => [],
+      ],
+      [
+        'title' => 'Master Data',
+        'link' => 'master',
+        'icon' => 'fa-caret-square-o-down',
+        'access' => ['!SPV'],
+        'submenu' => [
+          [
+            'title' => 'User',
+            'link' => 'master/user',
+          ],
+          [
+            'title' => 'Material',
+            'link' => 'master/material',
+          ],
+          [
+            'title' => 'Rekanan',
+            'link' => 'master/rekanan',
+          ],
+          [
+            'title' => 'Storage Location',
+            'link' => 'master/penyimpanan',
           ],
         ],
-        [
-          'title'     => 'History',
-          'link'      => 'history',
-          'icon'      => 'fa-history',
-          'access'    => ['!SPV'],
-          'submenu'   => [
-            [
-              'title'     => 'SPR',
-              'link'      => 'history/spr',
-            ],
-            [
-              'title'     => 'Reservasi',
-              'link'      => 'history/reservasi',
-            ],
-            [
-              'title'     => 'RMA',
-              'link'      => 'history/rma',
-            ],
+      ],
+      [
+        'title' => 'History',
+        'link' => 'history',
+        'icon' => 'fa-history',
+        'access' => ['!SPV'],
+        'submenu' => [
+          [
+            'title' => 'SPR',
+            'link' => 'history/spr',
+          ],
+          [
+            'title' => 'Reservasi',
+            'link' => 'history/reservasi',
+          ],
+          [
+            'title' => 'RMA',
+            'link' => 'history/rma',
           ],
         ],
-        // [
-        //   'title'     => 'Laporan',
-        //   'link'      => 'report',
-        //   'icon'      => 'fa-file-text',
-        //   'access'    => ['Admin'],
-        // ],
-      ];
+      ],
+      // [
+      //   'title'     => 'Laporan',
+      //   'link'      => 'report',
+      //   'icon'      => 'fa-file-text',
+      //   'access'    => ['Admin'],
+      // ],
+    ];
     ?>
     <!-- Left side column. contains the sidebar -->
     <aside class="main-sidebar">
@@ -188,10 +197,12 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
           <div class="pull-left image">
-            <img src="<?= base_url('assets/img/logo_icon.png') ?>" class="img-circle" alt="User Image" />
+            <img src="<?= base_url('assets/img/logo_icon.png') ?>" style="height: 50px; width: 105px;" alt="User Image" />
           </div>
           <div class="pull-left info">
-            <p><?= $this->session->userdata('nama') ?></p>
+            <p>
+              <?= $this->session->userdata('nama') ?>
+            </p>
 
             <a href="#"><i class="fa fa-circle text-success"></i> Aktif</a>
           </div>
@@ -199,7 +210,7 @@
 
         <ul class="sidebar-menu" id="menu">
           <li class="header">MENU UTAMA</li>
-          <?php foreach ($menu as $i => $row) : ?>
+          <?php foreach ($menu as $i => $row): ?>
             <?php
             $show = true;
             $is_menu_active = preg_match('/' . str_replace('/', '\/', $row['link']) . '/', $menu_active);
@@ -211,21 +222,27 @@
                 $show = false;
               }
             }
-            if($show) :
-            ?>
-            <li class="<?= (!empty($row['submenu']) ? 'treeview ' : '') . ($is_menu_active ? 'active' : '') ?>">
-              <a href="<?= site_url($row['link']) ?>">
-                <i class="fa <?= $row['icon'] ?>"></i> <span><?= $row['title'] ?></span> <?= !empty($row['submenu']) ? "<i class='fa fa-angle-left pull-right'></i>" : "<small class='label pull-right bg-green'></small>"; ?>
-              </a>
-              <?php if (!empty($row['submenu'])) : ?>
-                <ul class="treeview-menu">
-                  <?php foreach ($row['submenu'] as $j => $sub) : ?>
-                    <?php $is_submenu_active = explode('/', $sub['link'])[1] == $submenu_active; ?>
-                    <li class="<?= $is_submenu_active ? 'active' : '' ?>"><a href="<?= site_url($sub['link']) ?>"><i class="fa fa-circle-o"></i> <?= $sub['title'] ?></a></li>
-                  <?php endforeach; ?>
-                </ul>
-              <?php endif; ?>
-            </li>
+            if ($show):
+              ?>
+              <li class="<?= (!empty($row['submenu']) ? 'treeview ' : '') . ($is_menu_active ? 'active' : '') ?>">
+                <a href="<?= site_url($row['link']) ?>">
+                  <i class="fa <?= $row['icon'] ?>"></i> <span>
+                    <?= $row['title'] ?>
+                  </span>
+                  <?= !empty($row['submenu']) ? "<i class='fa fa-angle-left pull-right'></i>" : "<small class='label pull-right bg-green'></small>"; ?>
+                </a>
+                <?php if (!empty($row['submenu'])): ?>
+                  <ul class="treeview-menu">
+                    <?php foreach ($row['submenu'] as $j => $sub): ?>
+                      <?php $is_submenu_active = explode('/', $sub['link'])[1] == $submenu_active; ?>
+                      <li class="<?= $is_submenu_active ? 'active' : '' ?>"><a href="<?= site_url($sub['link']) ?>"><i
+                            class="fa fa-circle-o"></i>
+                          <?= $sub['title'] ?>
+                        </a></li>
+                    <?php endforeach; ?>
+                  </ul>
+                <?php endif; ?>
+              </li>
             <?php endif; ?>
           <?php endforeach; ?>
         </ul>
@@ -246,7 +263,7 @@
       <div class="pull-right hidden-xs">
         Versi <b>1.0 </b>
       </div>
-      <strong>Copyright &copy; 2023 <a href="#">PT. Indonesia Comnet Plus</a>.</strong> All rights reserved.
+      <strong>Copyright &copy; 2024 <a href="#">PT. Indonesia Comnet Plus</a>.</strong> All rights reserved.
       Halaman terload dalam <strong>{elapsed_time}</strong> detik.
     </footer>
   </div>
@@ -270,14 +287,14 @@
       width: "100%"
     });
 
-    // $.post("<?=base_url('home/jx_get_list_notif')?>", function(data, status) {
+    // $.post("<?= base_url('home/jx_get_list_notif') ?>", function(data, status) {
     //   data  = JSON.parse(data)
     //   let html  = ''
     //   data.forEach(val => {
     //     console.log(val)
     //     html += `
     //       <li>
-    //         <a href="<?=base_url('rent')?>">
+    //         <a href="<?= base_url('rent') ?>">
     //           <i class="fa fa-car text-aqua"></i> <b>${val.nama_pegawai}</b> memesan mobil
     //         </a>
     //       </li>

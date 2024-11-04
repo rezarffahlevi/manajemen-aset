@@ -82,9 +82,12 @@
         serverSide: true,
         ajax: {
           url: '<?= site_url('reservasi/jx_get_data') ?>',
-          type: 'POST'
-        }
-      })
+          type: 'POST',
+        },
+      }).on( 'draw.dt', function () {
+			if('<?= $this->session->userdata('level') ?>' == 'SPV' )
+				$('.approval').css({cursor:'pointer'});
+		} );
 
       <?php
       $msg = $this->session->flashdata("msg");
@@ -99,7 +102,7 @@
   })
 
 
-  function onAprrovalClick(id) {
+  function onAprovalClick2(id) {
     Swal.fire({
       title: 'Persetujuan',
       text: "Apakah anda menyetujui Reservasi ini?",
@@ -122,7 +125,7 @@
     })
   }
 
-  function onAprrovalClick(params) {
+  function onAprovalClick(params) {
     if('<?= $this->session->userdata('level') ?>' == 'Admin' )
       return;
       

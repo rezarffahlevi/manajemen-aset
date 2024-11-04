@@ -41,7 +41,7 @@ class Reservasi extends CI_Controller
 			// $button .= '
 			// 		<a target="_blank" href="' . base_url('rent/send_whatsapp/' . $v->id) . '" class="btn btn-info"><i class="fa fa-whatsapp"></i></a>
 			// 		';
-			$button .= '<span class="label label-danger" onclick="onAprrovalClick(\'' . base64_encode(json_encode($v)) . '\')">Butuh Persetujuan</span>';
+			$button .= '<span class="label label-danger approval" onclick="onAprovalClick(\'' . base64_encode(json_encode($v)) . '\')">Butuh Persetujuan</span>';
 
 
 			$get['data'][] = [
@@ -69,10 +69,10 @@ class Reservasi extends CI_Controller
 			'penyimpanan' => ['on' => 'penyimpanan.id=reservasi.penyimpanan_id', 'join' => 'LEFT'],
 		];
 		$select = '*, ';
-		$select .= 'reservasi.id as id, reservasi.keterangan as keterangan, reservasi.jumlah as jumlah';
+		$select .= 'reservasi.id as id, reservasi.keterangan as keterangan, reservasi.jumlah as jumlah, reservasi.status as status';
 		$start = $this->input->post('start');
 		$get = $this->M_master->get_data_table('reservasi', $start, $join, $select, null, ['reservasi.keterangan', 'lokasi_tujuan'], null, 'reservasi.id DESC');
-
+		
 		$data = $get['data'];
 		$get['data'] = [];
 		$start = $start + 1;
