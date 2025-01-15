@@ -22,10 +22,10 @@ class Reservasi extends CI_Controller
 	public function jx_get_data()
 	{
 		$join = [
-			'material' => ['on' => 'material.id=reservasi.material_id', 'join' => 'INNER JOIN'],
-			'spr' => ['on' => 'material.spr_id=spr.id', 'join' => 'INNER JOIN'],
-			'rekanan' => ['on' => 'rekanan.id=spr.rekanan_id', 'join' => 'INNER JOIN'],
-			'penyimpanan' => ['on' => 'penyimpanan.id=material.penyimpanan_id', 'join' => 'INNER JOIN'],
+			'material' => ['on' => 'material.id=reservasi.material_id', 'join' => 'LEFT JOIN'],
+			// 'spr' => ['on' => 'material.spr_id=spr.id', 'join' => 'LEFT JOIN'],
+			// 'rekanan' => ['on' => 'rekanan.id=spr.rekanan_id', 'join' => 'LEFT JOIN'],
+			'penyimpanan' => ['on' => 'penyimpanan.id=material.penyimpanan_id', 'join' => 'LEFT JOIN'],
 		];
 		$select = '*, ';
 		$select .= 'reservasi.id as id, reservasi.jumlah as jumlah';
@@ -53,7 +53,7 @@ class Reservasi extends CI_Controller
 				$v->lokasi,
 				$v->pic,
 				$v->jumlah,
-				$v->tgl,
+				$v->tgl_reservasi,
 				$button
 			];
 			$start++;
@@ -71,7 +71,8 @@ class Reservasi extends CI_Controller
 		$select = '*, ';
 		$select .= 'reservasi.id as id, reservasi.keterangan as keterangan, reservasi.jumlah as jumlah, reservasi.status as status';
 		$start = $this->input->post('start');
-		$get = $this->M_master->get_data_table('reservasi', $start, $join, $select, null, ['reservasi.keterangan', 'lokasi_tujuan'], null, 'reservasi.id DESC');
+		$where = 'reservasi.status <> "Butuh Persetujuan"';
+		$get = $this->M_master->get_data_table('reservasi', $start, $join, $select, $where, ['reservasi.keterangan', 'lokasi_tujuan'], null, 'reservasi.id DESC');
 		
 		$data = $get['data'];
 		$get['data'] = [];
