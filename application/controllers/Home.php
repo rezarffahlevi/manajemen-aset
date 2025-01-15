@@ -17,6 +17,15 @@ class Home extends CI_Controller
 	{
 
 		$data['less_stock'] = $this->M_master->get_id('material', 'jumlah <= 20')->result();
+		$materials = $this->M_master->get('material')->result();
+		$material_name = array();
+		$stock = array();
+		foreach ($materials as $material){
+			array_push($material_name, $material->material);
+			array_push($stock, $material->jumlah);
+		}
+		$data['material_name'] = join($material_name, ',');
+		$data['stock'] = join($stock, ',');
 		$data['content'] = 'content/dashboard';
 		$this->load->view('layout', $data);
 	}

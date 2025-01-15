@@ -277,6 +277,7 @@
   <!-- FastClick -->
   <script src="<?= base_url('assets/plugins/fastclick/fastclick.min.js') ?>"></script>
   <script src="<?= base_url('assets/plugins/select2/select2.min.js') ?>"></script>
+  <script src="<?= base_url('assets/plugins/chartjs/Chart.min.js') ?>"></script>
   <!-- AdminLTE App -->
   <script src="<?= base_url('assets/js/app.min.js') ?>" type="text/javascript"></script>
   <script src="<?= base_url('assets/js/chosen.jquery.min.js') ?>" type="text/javascript"></script>
