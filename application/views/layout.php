@@ -113,6 +113,7 @@
     $menu_active = "";
     $submenu_active = "";
     $level = $this->session->userdata('level');
+		$count_reservasi = $this->M_master->get_count_id('reservasi', 'status = "Butuh Persetujuan"')->row();
 
     if ($uri->total_segments() > 0) {
       $menu_active = $uri->segment(1);
@@ -230,7 +231,13 @@
                     <?= $row['title'] ?>
                   </span>
                   <?= !empty($row['submenu']) ? "<i class='fa fa-angle-left pull-right'></i>" : "<small class='label pull-right bg-green'></small>"; ?>
-                </a>
+									<?php 
+									if($row['link'] == 'reservasi' && $count_reservasi->total > 0) { ?>
+									<span class="pull-right-container">
+										<small class="label pull-right bg-red"><?= $count_reservasi->total?></small>
+									</span>
+									<?php } ?>
+								</a>
                 <?php if (!empty($row['submenu'])): ?>
                   <ul class="treeview-menu">
                     <?php foreach ($row['submenu'] as $j => $sub): ?>
